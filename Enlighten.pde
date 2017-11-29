@@ -1,3 +1,12 @@
+//COLOR
+//SMELL 
+//DETAIL
+//SOUND
+//MOTION
+
+//REMOVE BLUE
+//REMOVE MOTION
+//REMOVE DETAIL
 
 float x, y, z;
 int bsize = 10;
@@ -34,6 +43,7 @@ void setup() {
 }
 
 void draw() {
+  
   background(150);
   camera(mouseX, -mouseY, 400.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
@@ -47,13 +57,11 @@ void draw() {
     popMatrix();
   }
 
-
-  if(actives[0]){
-    bulbs[0].updateWave();
+for(int i = 0; i < actives.length ; i++){
+  if(actives[i]){
+    bulbs[i].updateWave();
   }
-  if(actives[1]){
-    bulbs[1].updateWave();
-  }
+}
 
   noFill();
   box(scene);
@@ -62,54 +70,39 @@ void draw() {
   noStroke();
   sphere(5);
   stroke(1);
-  waveReach();
+
 }
 void keyPressed() {
-  if (key == CODED) {
-    if (keyCode == UP) {
+    if (key == 49) {
       actives[0] = true;
       bulbs[0].wave.reset();
     }
-      if (keyCode == DOWN) {
+      if (key == 50) {
       actives[1] = true;
       bulbs[1].wave.reset();
     }
-  }
-}
-void waveReach() {
-  for (int i = 0; i < bulbs.length; i++) {
-    Bulb temp1 = bulbs[i];
-    for (int j = 0; j < bulbs.length; j++) {
-      Bulb temp2 =  bulbs[j];
-      //Diameter of temp1 is greater than distance between center and temp2
-      if (temp1.tsize > Math.sqrt(Math.pow((temp2.x - temp1.x), 2) + Math.pow((temp2.y - temp1.y), 2) + Math.pow((temp2.z - temp1.z), 2))) {
-        temp2.enlighten();
-      } else {
-        //temp2. unlighten();
-      }
+      if (key == 51) {
+      actives[2] = true;
+      bulbs[2].wave.reset();
     }
-  }
-}
-void resetScene() {
-  for (int i = 0; i < bulbs.length; i++) {
-    bulbs[i].unlighten();
-    bulbs[i].wave.reset();
-  }
-}
-void triggerWave() {
-  //temp.trigger();
-  int time = millis();
-  if (millis() < time + 2000)
-  {
-    temp.updateWave();
-    time = millis();
-  }
-}
-void mouseReleased() {
-  temp = bulbs[7];
-  int time = millis();
-  if (millis() < time + 2000) {
-    temp.updateWave();
-    time = millis();
-  }
+      if (key == 52) {
+      actives[3] = true;
+      bulbs[3].wave.reset();
+    }
+      if (key == 53) {
+      actives[4] = true;
+      bulbs[4].wave.reset();
+    }
+      if (key == 54) {
+      actives[5] = true;
+      bulbs[5].wave.reset();
+    }
+      if (key == 55) {
+      actives[6] = true;
+      bulbs[6].wave.reset();
+    }
+      if (key == 56) {
+      actives[7] = true;
+      bulbs[7].wave.reset();
+    }
 }

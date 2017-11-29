@@ -25,7 +25,8 @@ class Wave extends Thread {
   }
   void display(){
     translate(x, y, z);
-    fill(255, 10, 10, 10);
+    //fill(255, 10, 10, 255);
+    noFill();
     sphereDetail(res);
     sphere(tsize);
 }
