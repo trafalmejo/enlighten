@@ -17,11 +17,11 @@ class Particle {
 
     vel = new PVector(vx, vy, vz);
     loc = l.copy();
-    lifespan = 1350.0;
+    lifespan = 350.0;
     img = img_;
     //Started out
     in = false;
-    out = true;
+    out = false;
   }
 
   void run() {
@@ -43,19 +43,19 @@ class Particle {
     acc.mult(0); // clear Acceleration
     //check if it touching some bulb
     for (int i = 0; i < bulbs.length; i++) {
+      //PARTICLE IS INSIDE THE BULB AND IT IS THE FIRST TIME ENTERING
       if (loc.dist(bulbs[i].position) < bulbs[i].size && !in) {
         bulbs[i].onFire();
         in = true;
-        out = false;
         //println("contact: " + i);
         println("contact: "+ i + ", "+  bulbs[i].numberParticles);
-      } else {
-        if (!out) {
+      }
+        else if (loc.dist(bulbs[i].position) < bulbs[i].size && !out) {
           bulbs[i].outFire();
           out = true;
         }
         //bulbs[i].outFire();
-      }
+      
     }
   }
 
@@ -81,8 +81,15 @@ class Particle {
   // Is the particle still useful?
   boolean isDead() {
     if (lifespan <= 0.0) {
+      for (int i = 0; i < bulbs.length; i++) {
+        //IF IT IS INSIDE
+        //if (loc.dist(bulbs[i].position) < bulbs[i].size && in) {
+        //  bulbs[i].outFire();
+        //}
+      }
       return true;
     } else {
+
       return false;
     }
   }

@@ -62,9 +62,9 @@ void draw() {
   ps.run();
   
   if (pause) {
-    for (int i = 0; i < 2; i++) {
+    //for (int i = 0; i < 2; i++) {
       ps.addParticle();
-    }
+    //}
   }
   // Draw an arrow representing the wind force
   drawVector(wind, new PVector(0, -150, 0), 500);
