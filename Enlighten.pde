@@ -7,9 +7,12 @@
 //REMOVE BLUE
 //REMOVE MOTION
 //REMOVE DETAIL
+
 ParticleSystem ps;
 
 float x, y, z;
+float windX, windZ = 0;
+float windForce = 0.5;
 int bsize = 10;
 boolean actives[] = {false, false, false, false, false, false, false, false};
 int scene = 200;
@@ -56,15 +59,15 @@ void draw() {
 
   // Calculate a "wind" force based on mouse horizontal position
   float dx = map(mouseX, 0, width, -0.2, 0.2);
-  PVector wind = new PVector(0, 0, 0);
+  PVector wind = new PVector(windX, 0, windZ);
   ps.applyForce(wind);
 
   ps.run();
-  
+
   if (pause) {
-    //for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 100; i++) {
       ps.addParticle();
-    //}
+    }
   }
   // Draw an arrow representing the wind force
   drawVector(wind, new PVector(0, -150, 0), 500);
@@ -81,10 +84,17 @@ void drawVector(PVector v, PVector loc, float scayl) {
   rotate(v.heading());
   // Calculate length of vector & scale it to be bigger or smaller if necessary
   float len = v.mag()*scayl;
+  PVector x = new PVector(v.x,0,0);
+  PVector z = new PVector(0,0,v.z);
+  float xx = x.mag()*scayl;
+  float zz = z.mag()*scayl;
+
   // Draw three lines to make an arrow (draw pointing up since we've rotate to the proper direction)
-  line(0, 0, len, 0);
-  line(len, 0, len-arrowsize, +arrowsize/2);
-  line(len, 0, len-arrowsize, -arrowsize/2);
+  line(0, 0, 0, xx, 0, zz);
+  translate(v.x, v.y, v.z);
+  sphere(2);
+  //line(len, 0, len-arrowsize, +arrowsize/2);
+  //line(len, 0, len-arrowsize, -arrowsize/2);
   popMatrix();
 
 
@@ -113,6 +123,20 @@ void drawVector(PVector v, PVector loc, float scayl) {
   noStroke();
   //sphere(5);
   stroke(1);
+  if(mousePressed){
+    if (keyCode == UP) {
+    windZ -= windForce;
+  }
+  if (keyCode == DOWN) {
+    windZ += windForce;
+  }  
+  if (keyCode == LEFT) {
+    windX -= windForce;
+  }  
+  if (keyCode == RIGHT) {
+    windX += windForce;
+  }
+}
 }
 void keyPressed() {
   if (key == 49) {
@@ -150,4 +174,5 @@ void keyPressed() {
   if (key == 57) {
     pause = !pause;
   }
+  //println(keyCode);
 }

@@ -6,18 +6,19 @@ class Particle {
   PVector acc;
   float lifespan;
   PShape img;
-  int size = 2;
+  int size = 10;
+  int res = 1;
   boolean in, out;
 
   Particle(PVector l, PShape img_) {
     acc = new PVector(0, 0, 0);
-    float vx = randomGaussian()*0.3;
-    float vy = randomGaussian()*0.3 - 1.0;
-    float vz = randomGaussian()*0.3;
+    float vx = randomGaussian()*0.7;
+    float vy = randomGaussian()*0.8 - 1.0;
+    float vz = randomGaussian()*0.7;
 
     vel = new PVector(vx, vy, vz);
     loc = l.copy();
-    lifespan = 350.0;
+    lifespan = 120.0;
     img = img_;
     //Started out
     in = false;
@@ -48,14 +49,11 @@ class Particle {
         bulbs[i].onFire();
         in = true;
         //println("contact: " + i);
-        println("contact: "+ i + ", "+  bulbs[i].numberParticles);
+      } else if (loc.dist(bulbs[i].position) < bulbs[i].size && !out) {
+        bulbs[i].outFire();
+        out = true;
       }
-        else if (loc.dist(bulbs[i].position) < bulbs[i].size && !out) {
-          bulbs[i].outFire();
-          out = true;
-        }
-        //bulbs[i].outFire();
-      
+      //bulbs[i].outFire();
     }
   }
 
@@ -72,20 +70,31 @@ class Particle {
     //SPHERE
     pushMatrix();
     translate(loc.x, loc.y, loc.z);
-    fill(255);
-    noStroke();
-    sphere(size);
+    //fill(255,255,255,255);
+    //noStroke();
+    sphereDetail(res);
+    noFill();
+    stroke(255,0,0
+    
+    );
+    //sphere(size);
+    ellipse(loc.x, loc.y, 2,2);
+    stroke(0);
     popMatrix();
   }
 
   // Is the particle still useful?
   boolean isDead() {
     if (lifespan <= 0.0) {
+
       for (int i = 0; i < bulbs.length; i++) {
+        //println("contact: "+ i + ", "+  bulbs[i].numberParticles);
+
         //IF IT IS INSIDE
-        //if (loc.dist(bulbs[i].position) < bulbs[i].size && in) {
-        //  bulbs[i].outFire();
-        //}
+        if (loc.dist(bulbs[i].position) < bulbs[i].size && in && !out) {
+          //println("die Inside");
+          bulbs[i].outFire();
+        }
       }
       return true;
     } else {

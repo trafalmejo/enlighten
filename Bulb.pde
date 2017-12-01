@@ -2,6 +2,7 @@ class Bulb {
   float x, y, z; 
   boolean ins[] = {false, false, false, false, false, false, false, false};
   boolean in = false;
+  int res = 5;
   boolean onFire = false;
   float tsize, size = 0;
   PVector position;
@@ -32,10 +33,11 @@ class Bulb {
         //fill(255, 255, 0);
         fill(0);
       } else {
-        fill(0, 255, 0);
-        //int f = int(map(numberParticles,0,1,0, 255));
-        //fill(f,f,0);
+        //fill(0, 255, 0);
+        int f = int(map(numberParticles,0,15,0, 255));
+        fill(f,f,0);
       }
+      sphereDetail(res);
       sphere(size);
       stroke(1);
     }
