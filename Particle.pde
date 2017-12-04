@@ -12,9 +12,9 @@ class Particle {
 
   Particle(PVector l, PShape img_) {
     acc = new PVector(0, 0, 0);
-    float vx = randomGaussian()*0.7;
-    float vy = randomGaussian()*0.8 - 1.0;
-    float vz = randomGaussian()*0.7;
+    float vx = randomGaussian()*0.5;
+    float vy = randomGaussian()*2.5 - 1.0;
+    float vz = randomGaussian()*0.5;
 
     vel = new PVector(vx, vy, vz);
     loc = l.copy();

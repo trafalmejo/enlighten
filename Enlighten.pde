@@ -1,3 +1,4 @@
+
 //COLOR
 //SMELL 
 //DETAIL
@@ -12,7 +13,7 @@ ParticleSystem ps;
 
 float x, y, z;
 float windX, windZ = 0;
-float windForce = 0.5;
+float windForce = 0.25;
 int bsize = 10;
 boolean actives[] = {false, false, false, false, false, false, false, false};
 int scene = 200;
@@ -60,12 +61,14 @@ void draw() {
   // Calculate a "wind" force based on mouse horizontal position
   float dx = map(mouseX, 0, width, -0.2, 0.2);
   PVector wind = new PVector(windX, 0, windZ);
+   // PVector wind = new PVector(dx, 0, 0);
+
   ps.applyForce(wind);
 
   ps.run();
 
   if (pause) {
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 50; i++) {
       ps.addParticle();
     }
   }
@@ -123,9 +126,13 @@ void drawVector(PVector v, PVector loc, float scayl) {
   noStroke();
   //sphere(5);
   stroke(1);
-  if(mousePressed){
+  windX=0;
+  windZ=0;
+  
+  if(keyPressed){
     if (keyCode == UP) {
     windZ -= windForce;
+    //println(windZ);
   }
   if (keyCode == DOWN) {
     windZ += windForce;
@@ -136,7 +143,8 @@ void drawVector(PVector v, PVector loc, float scayl) {
   if (keyCode == RIGHT) {
     windX += windForce;
   }
-}
+  }
+
 }
 void keyPressed() {
   if (key == 49) {
