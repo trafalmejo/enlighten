@@ -8,7 +8,11 @@
 //REMOVE BLUE
 //REMOVE MOTION
 //REMOVE DETAIL
+ 
+ 
+import peasy.*;
 
+PeasyCam cam;
 ParticleSystem ps;
 
 float x, y, z;
@@ -59,7 +63,9 @@ void setup() {
 
   //ORIGIN VECTOR
   ps = new ParticleSystem(0, new PVector(0, 0, 0), createShape());
-
+  cam = new PeasyCam(this, 100);
+  cam.setMinimumDistance(250);
+  cam.setMaximumDistance(1500);
   //camera(300.0, -y, 400.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 }
 
@@ -110,7 +116,7 @@ void drawVector(PVector v, PVector loc, float scayl) {
   popMatrix();
 
 
-  camera(mouseX, -mouseY, 400.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+  //camera(mouseX, -mouseY, 400.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
   for (int i = 0; i < bulbs.length; i++) {
     pushMatrix();
