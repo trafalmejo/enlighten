@@ -13,30 +13,39 @@ ParticleSystem ps;
 
 float x, y, z;
 float windX, windZ = 0;
-float windForce = 0.25;
-int bsize = 10;
+float windForce = 0.125;
+int bsize = 5;
 boolean actives[] = {false, false, false, false, false, false, false, false};
 int scene = 200;
 boolean pause;
 Bulb temp =  null;
 Bulb bulbs[] = new Bulb[8];
-Bulb bulb01 = new Bulb(50, -60, 50, bsize);
-Bulb bulb02 = new Bulb(50, -60, -50, bsize);
-Bulb bulb03 = new Bulb(-50, -60, -50, bsize);
-Bulb bulb04 = new Bulb(-50, -60, 50, bsize);
-Bulb bulb05 = new Bulb(-25, -80, 25, bsize);
-Bulb bulb06 = new Bulb(25, -90, -25, bsize);
-Bulb bulb07 = new Bulb(25, -80, 25, bsize);
-Bulb bulb08 = new Bulb(-25, -100, -25, bsize);
 
+//Bulb bulb01 = new Bulb(50, -60, 50, bsize);
+//Bulb bulb02 = new Bulb(50, -60, -50, bsize);
+//Bulb bulb03 = new Bulb(-50, -60, -50, bsize);
+//Bulb bulb04 = new Bulb(-50, -60, 50, bsize);
+//Bulb bulb05 = new Bulb(-25, -80, 25, bsize);
+//Bulb bulb06 = new Bulb(25, -90, -25, bsize);
+//Bulb bulb07 = new Bulb(25, -80, 25, bsize);
+//Bulb bulb08 = new Bulb(-25, -100, -25, bsize);
+Bulb bulb01 = new Bulb(-30, -60, 0, bsize);
+Bulb bulb02 = new Bulb(-20, -60, 0, bsize);
+Bulb bulb03 = new Bulb(-10, -60, 0, bsize);
+Bulb bulb04 = new Bulb(0, -60, 0, bsize);
+Bulb bulb05 = new Bulb(10, -60, 0, bsize);
+Bulb bulb06 = new Bulb(20, -60, 0, bsize);
+Bulb bulb07 = new Bulb(30, -60, 0, bsize);
+Bulb bulb08 = new Bulb(40, -60, 0, bsize);
 
 void setup() {
 
+  frameRate(60);
   size(1280, 720, P3D);
   x = width/2;
   y = height/2;
   z = 0;
-  pause = true;
+  pause = false;
   translate(x, y, z);
   //for(int i = 0; i < bulbs.size(); i++){
   bulbs[0] = (bulb01);
@@ -182,5 +191,10 @@ void keyPressed() {
   if (key == 57) {
     pause = !pause;
   }
+    if (key == 'p') {
+        ps.addParticle();
+  }
+
+  //println(key);
   //println(keyCode);
 }

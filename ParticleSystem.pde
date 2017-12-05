@@ -6,7 +6,7 @@ class ParticleSystem {
   ArrayList<Particle> particles;    // An arraylist for all the particles
   PVector origin;                   // An origin point for where particles are birthed
   PShape img;
-  int particlesInBulbs[] = {0,0,0,0,0,0,0,0};
+  int particlesInBulbs[] = {0, 0, 0, 0, 0, 0, 0, 0};
 
 
   ParticleSystem(int num, PVector v, PShape img_) {
