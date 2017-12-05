@@ -24,7 +24,7 @@ class Particle {
 
     vel = new PVector(vx, vy, vz);
     loc = l.copy();
-    lifespan = 80.0;
+    lifespan = 100.0;
     img = img_;
     //Started out
     in = false;

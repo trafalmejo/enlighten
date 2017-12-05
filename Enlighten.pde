@@ -21,35 +21,50 @@ ParticleSystem ps;
 
 float x, y, z;
 float windX, windZ = 0;
-float windForce = 0.125;
+float windForce = 0.05;
 int bsize = 5;
 boolean actives[] = {false, false, false, false, false, false, false, false};
 int scene = 200;
 boolean pause;
 Bulb temp =  null;
 Bulb bulbs[] = new Bulb[8];
+int bright = 60;
 
-//Bulb bulb01 = new Bulb(50, -60, 50, bsize);
-//Bulb bulb02 = new Bulb(50, -60, -50, bsize);
-//Bulb bulb03 = new Bulb(-50, -60, -50, bsize);
-//Bulb bulb04 = new Bulb(-50, -60, 50, bsize);
-//Bulb bulb05 = new Bulb(-25, -80, 25, bsize);
-//Bulb bulb06 = new Bulb(25, -90, -25, bsize);
-//Bulb bulb07 = new Bulb(25, -80, 25, bsize);
-//Bulb bulb08 = new Bulb(-25, -100, -25, bsize);
-Bulb bulb01 = new Bulb(-30, -60, 0, bsize);
-Bulb bulb02 = new Bulb(-20, -60, 0, bsize);
-Bulb bulb03 = new Bulb(-10, -60, 0, bsize);
-Bulb bulb04 = new Bulb(0, -60, 0, bsize);
-Bulb bulb05 = new Bulb(10, -60, 0, bsize);
-Bulb bulb06 = new Bulb(20, -60, 0, bsize);
-Bulb bulb07 = new Bulb(30, -60, 0, bsize);
-Bulb bulb08 = new Bulb(40, -60, 0, bsize);
+//SET PYRAMID UPSIDE DOWN
+Bulb bulb01 = new Bulb(7, -50, 7, bsize);
+Bulb bulb02 = new Bulb(7, -50, -7, bsize);
+Bulb bulb03 = new Bulb(-7, -50, -7, bsize);
+Bulb bulb04 = new Bulb(-7, -50, 7, bsize);
+Bulb bulb05 = new Bulb(-5, -40, 5, bsize);
+Bulb bulb06 = new Bulb(5, -40, -5, bsize);
+Bulb bulb07 = new Bulb(5, -40, 5, bsize);
+Bulb bulb08 = new Bulb(-5, -40, -5, bsize);
+//SET PYRAMID NORMAL
+//Bulb bulb01 = new Bulb(7, -40, 7, bsize);
+//Bulb bulb02 = new Bulb(7, -40, -7, bsize);
+//Bulb bulb03 = new Bulb(-7, -40, -7, bsize);
+//Bulb bulb04 = new Bulb(-7, -40, 7, bsize);
+//Bulb bulb05 = new Bulb(-5, -50, 5, bsize);
+//Bulb bulb06 = new Bulb(5, -50, -5, bsize);
+//Bulb bulb07 = new Bulb(5, -50, 5, bsize);
+//Bulb bulb08 = new Bulb(-5, -50, -5, bsize);
+//SET LINEAR
+//Bulb bulb01 = new Bulb(-30, -60, 0, bsize);
+//Bulb bulb02 = new Bulb(-20, -60, 0, bsize);
+//Bulb bulb03 = new Bulb(-10, -60, 0, bsize);
+//Bulb bulb04 = new Bulb(0, -60, 0, bsize);
+//Bulb bulb05 = new Bulb(10, -60, 0, bsize);
+//Bulb bulb06 = new Bulb(20, -60, 0, bsize);
+//Bulb bulb07 = new Bulb(30, -60, 0, bsize);
+//Bulb bulb08 = new Bulb(40, -60, 0, bsize);
 
+void settings()
+{  size(1280, 720, P3D);
+}
 void setup() {
-  size(1280, 720, P3D);
-
-
+  for(int i = 0; i < Serial.list().length ; i++){
+    println(Serial.list()[i]);
+  }
   String portName = Serial.list()[0]; //change the 0 to a 1 or 2 etc. to match your port
   myPort = new Serial(this, portName, 9600);
   
@@ -79,7 +94,7 @@ void setup() {
 void draw() {
 
   background(150);
-
+    bright = int(map(mouseX,0,1280 , 0, 60));
   // Calculate a "wind" force based on mouse horizontal position
   float dx = map(mouseX, 0, width, -0.2, 0.2);
   PVector wind = new PVector(windX, 0, windZ);
@@ -90,7 +105,7 @@ void draw() {
   ps.run();
 
   if (pause) {
-    for (int i = 0; i < 50; i++) {
+    for (int i = 0; i < bright; i++) {
       ps.addParticle();
     }
   }
@@ -164,10 +179,10 @@ void drawVector(PVector v, PVector loc, float scayl) {
   if (keyCode == DOWN) {
     windZ += windForce;
   }  
-  if (keyCode == LEFT) {
+   if (keyCode == LEFT) {
     windX -= windForce;
   }  
-  if (keyCode == RIGHT) {
+   if (keyCode == RIGHT) {
     windX += windForce;
   }
   }
