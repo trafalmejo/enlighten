@@ -7,7 +7,7 @@ class Bulb {
   float tsize, size = 0;
   PVector position;
   int numberParticles;
-
+ int brightness = 0;
   Wave wave;
 
   Bulb (float xp, float yp, float zp, float tamp) {  
@@ -36,13 +36,13 @@ class Bulb {
     } else {
       //fill(255, 255, 0);
       //println(numberParticles);
-      int f = int(map(numberParticles, 0, 56, 0, 255));
-      fill(f, f, 0);
+      brightness = int(map(numberParticles, 0, 56, 0, 255));
+      fill(brightness, brightness, 0);
     }
     sphereDetail(res);
     sphere(size);
     stroke(1);
-    println(numberParticles);
+    //println(numberParticles);
   }
   void onFire() {
     onFire = true;

@@ -11,6 +11,10 @@
  
  
 import peasy.*;
+import processing.serial.*;
+Serial myPort;  // Create object from Serial class
+
+
 
 PeasyCam cam;
 ParticleSystem ps;
@@ -43,9 +47,12 @@ Bulb bulb07 = new Bulb(30, -60, 0, bsize);
 Bulb bulb08 = new Bulb(40, -60, 0, bsize);
 
 void setup() {
-
-  frameRate(60);
   size(1280, 720, P3D);
+
+
+  String portName = Serial.list()[0]; //change the 0 to a 1 or 2 etc. to match your port
+  myPort = new Serial(this, portName, 9600);
+  
   x = width/2;
   y = height/2;
   z = 0;
@@ -89,6 +96,11 @@ void draw() {
   }
   // Draw an arrow representing the wind force
   drawVector(wind, new PVector(0, -150, 0), 500);
+  
+  //SENDING DATA TO ARDUINO
+  if(bulbs[0] != null ) {
+      myPort.write(bulbs[0].brightness);
+    }
 }
 
 // Renders a vector object 'v' as an arrow and a position 'loc'
