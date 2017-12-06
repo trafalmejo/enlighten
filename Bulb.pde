@@ -7,8 +7,8 @@ class Bulb {
   float tsize, size = 0;
   PVector position;
   int numberParticles;
- int brightness = 0;
   Wave wave;
+int brightness;
 
   Bulb (float xp, float yp, float zp, float tamp) {  
     x = xp; 
@@ -22,35 +22,27 @@ class Bulb {
   } 
   void updateDisplay() {
 
-    IsIns();
-    isIn();
+    //IsIns();
+    //isIn();
     translate(x, y, z);
     tsize = wave.tsize;
     numberParticles = particlesIn();
     noStroke();
-    if (!( numberParticles > 0 || in)) {
-      // if (!(onFire)) {
-      //numberParticles = 0;
+    // if (!( numberParticles > 0 || in)) {
+    if (numberParticles <= 0) {
       //fill(255, 255, 0);
+      brightness = 0;
       fill(0);
     } else {
       //fill(255, 255, 0);
       //println(numberParticles);
-      brightness = int(map(numberParticles, 0, 56, 0, 255));
+      brightness = int(map(numberParticles, 0, bright, 0, 254));
       fill(brightness, brightness, 0);
     }
     sphereDetail(res);
     sphere(size);
     stroke(1);
     //println(numberParticles);
-  }
-  void onFire() {
-    onFire = true;
-    numberParticles++;
-  }
-  void outFire() {
-    onFire = false;
-    numberParticles--;
   }
   //CHECK IF THE BULB IN THE WAVE
   void IsIns() {

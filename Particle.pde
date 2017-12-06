@@ -9,8 +9,6 @@ class Particle {
   int size = 10;
   int res = 1;
   boolean in, out;
-  private Bulb copy[] = new Bulb[8];
-  int where[] = new int[8];
 
   Particle(PVector l, PShape img_) {
     acc = new PVector(0, 0, 0);
@@ -18,9 +16,6 @@ class Particle {
     float vy = -2;
     float vz = randomGaussian()*0.2;
 
-    for (int i = 0; i< bulbs.length; i++) {
-      copy[i] = bulbs[i];
-    }
 
     vel = new PVector(vx, vy, vz);
     loc = l.copy();
@@ -49,17 +44,7 @@ class Particle {
     lifespan -= 2.5;
     acc.mult(0); // clear Acceleration
     //check if it touching some bulb
-    //EVERY BULB
-    for (int t = 0; t < copy.length; t++) {
-      if (loc.dist(copy[t].position) < copy[t].size) {
-        if (in == false) {
-          in = true;
-          where[t] = 1;
-        }
-      } else {
-        where[t] = 0;
-      }
-    }
+
   }
 
   // Method to display
@@ -92,19 +77,6 @@ class Particle {
   // Is the particle still useful?
   boolean isDead() {
     if (lifespan <= 0.0) {
-
-      for (int i = 0; i < bulbs.length; i++) {
-        //println("contact: "+ i + ", "+  bulbs[i].numberParticles);
-
-        //IF IT IS INSIDE
-        //if (loc.dist(bulbs[i].position) < bulbs[i].size && in==true && out==false) {
-        if (loc.dist(bulbs[i].position) < bulbs[i].size) {
-
-          //if (in==true && out==false) {
-          //println("die Inside");
-          //bulbs[i].outFire();
-        }
-      }
       return true;
     } else {
 
