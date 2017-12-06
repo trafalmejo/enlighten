@@ -43,8 +43,7 @@ boolean pause;
 Bulb temp =  null;
 Bulb bulbs[] = new Bulb[8];
 int bright = 5;
-int toArduino = 0;
-int toArduino2 = 0;
+
 byte out[] = new byte[8];
 
 //SET PYRAMID UPSIDE DOWN
@@ -66,18 +65,28 @@ byte out[] = new byte[8];
 //Bulb bulb07 = new Bulb(5, -50, 5, bsize);
 //Bulb bulb08 = new Bulb(-5, -50, -5, bsize);
 //SET LINEAR
-Bulb bulb01 = new Bulb(-35, -60, 0, bsize);
-Bulb bulb02 = new Bulb(-25, -60, 0, bsize);
-Bulb bulb03 = new Bulb(-15, -60, 0, bsize);
-Bulb bulb04 = new Bulb(-5, -60, 0, bsize);
-Bulb bulb05 = new Bulb(5, -60, 0, bsize);
-Bulb bulb06 = new Bulb(15, -60, 0, bsize);
-Bulb bulb07 = new Bulb(25, -60, 0, bsize);
-Bulb bulb08 = new Bulb(35, -60, 0, bsize);
+//Bulb bulb01 = new Bulb(-35, -60, 0, bsize);
+//Bulb bulb02 = new Bulb(-25, -60, 0, bsize);
+//Bulb bulb03 = new Bulb(-15, -60, 0, bsize);
+//Bulb bulb04 = new Bulb(-5, -60, 0, bsize);
+//Bulb bulb05 = new Bulb(5, -60, 0, bsize);
+//Bulb bulb06 = new Bulb(15, -60, 0, bsize);
+//Bulb bulb07 = new Bulb(25, -60, 0, bsize);
+//Bulb bulb08 = new Bulb(35, -60, 0, bsize);
+//SET LINEAR CLOSER
+Bulb bulb01 = new Bulb(-28, -60, 0, bsize);
+Bulb bulb02 = new Bulb(-20, -60, 0, bsize);
+Bulb bulb03 = new Bulb(-12, -60, 0, bsize);
+Bulb bulb04 = new Bulb(-4, -60, 0, bsize);
+Bulb bulb05 = new Bulb(4, -60, 0, bsize);
+Bulb bulb06 = new Bulb(12, -60, 0, bsize);
+Bulb bulb07 = new Bulb(20, -60, 0, bsize);
+Bulb bulb08 = new Bulb(28, -60, 0, bsize);
 
 void settings()
 {  
-  size(1280, 720, P3D);
+  //size(1280, 720, P3D);
+  fullScreen(P3D);
 }
 void setup() {
   //for (int i = 0; i < Serial.list().length; i++) {
@@ -196,35 +205,45 @@ void draw() {
     }
   } else {
     if (flameX < 0 && flameY < 0) {
-      windZ -= windForce;
+     // windZ -= windForce;
       windX -= windForce;
     }
     if (flameX > 0 && flameY < 0) {
-      windZ -= windForce;
+     // windZ -= windForce;
       windX += windForce;
     }  
     if (flameX < 0 && flameY > 0) {
-      windZ += windForce;
+     // windZ += windForce;
       windX -= windForce;
     }  
     if (flameX > 0 && flameY > 0) {
-      windZ += windForce;
+     // windZ += windForce;
       windX += windForce;
     }
   }
 
   //SENDING DATA TO ARDUINO
-  //if (bulbs[0] != null && bulbs[1] != null) {
-  //  myPort.write(bulbs[0].brightness);
-  //      myPort.write(bulbs[1].brightness);
+    myPort.write("a" + bulbs[0].brightness);
+    myPort.write("b" + bulbs[1].brightness);
+    myPort.write("c" + bulbs[2].brightness);
+    myPort.write("d" + bulbs[3].brightness);
+    myPort.write("e" + bulbs[4].brightness);
+    myPort.write("f" + bulbs[5].brightness);
+    myPort.write("g" + bulbs[6].brightness);
+    myPort.write("h" + bulbs[7].brightness);
 
+
+ 
+  //for (int i = 0; i < bulbs.length; i++) {
+  //  if (bulbs[i]!= null) {
+  //   // if (bulbs[i].brightness != 0) {
+  //      out[i] = byte(bulbs[i].brightness);
+  //   // } else {
+  //    //  out[i] = 1;
+  //   // }
+  //  }
   //}
-  for (int i = 0; i < bulbs.length; i++) {
-    if (bulbs[i]!= null) {
-      out[i] = byte(bulbs[i].brightness);
-    }
-  }
-  myPort.write(out);
+  //myPort.write(out);
   for (int i = 0; i < bulbs.length; i++) {
     print(bulbs[i].brightness + ", ");
   }
