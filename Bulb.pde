@@ -8,7 +8,7 @@ class Bulb {
   PVector position;
   int numberParticles;
   Wave wave;
-int brightness;
+  int brightness;
 
   Bulb (float xp, float yp, float zp, float tamp) {  
     x = xp; 
@@ -39,18 +39,20 @@ int brightness;
       brightness = int(map(numberParticles, 0, bright, 0, 254));
       fill(brightness, brightness, 0);
     }
+
+    //println(waveCandle.tsize);
     sphereDetail(res);
     sphere(size);
     stroke(1);
     //println(numberParticles);
   }
-  
-  boolean isInsWaveCandle(){
-  if (wave.tsize > Math.sqrt(Math.pow((x - wave.x), 2) + Math.pow((y - wave.y), 2) + Math.pow((z - wave.z), 2))) {
-        return true;
-      } else {
-        return false;
-      }
+
+  boolean isInWaveCandle() {
+    if (waveCandle.tsize > Math.sqrt(Math.pow((x - waveCandle.x), 2) + Math.pow((y - waveCandle.y), 2) + Math.pow((z - waveCandle.z), 2))) {
+      return true;
+    } else {
+      return false;
+    }
   }
   //CHECK IF THE BULB IN THE WAVE
   void IsIns() {
