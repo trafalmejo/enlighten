@@ -1,8 +1,9 @@
-class Wave extends Thread { 
+class Wave{ 
 
   float x, y, z;
   float tsize = 0;
   int res = 15;
+  //JUST ONE WAVE PER TIME
   boolean once = false;
 
   Wave (float xp, float yp, float zp) {  

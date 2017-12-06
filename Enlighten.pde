@@ -44,6 +44,9 @@ Bulb temp =  null;
 Bulb bulbs[] = new Bulb[8];
 int bright = 5;
 
+//WAVE CANDLE
+Wave wave;
+
 byte out[] = new byte[8];
 
 //SET PYRAMID UPSIDE DOWN
@@ -85,8 +88,8 @@ Bulb bulb08 = new Bulb(28, -60, 0, bsize);
 
 void settings()
 {  
-  //size(1280, 720, P3D);
-  fullScreen(P3D);
+  size(1280, 720, P3D);
+  //fullScreen(P3D);
 }
 void setup() {
   //for (int i = 0; i < Serial.list().length; i++) {
@@ -106,6 +109,9 @@ void setup() {
   y = height/2;
   z = 0;
   pause = false;
+  wave = new Wave(0, 0, 0);
+  //Dont trigger fisrt time
+  wave.once= true;
   translate(x, y, z);
   bulbs[0] = (bulb01);
   bulbs[1] = (bulb02);
@@ -173,7 +179,7 @@ void draw() {
   //drawVector(wind, new PVector(0, -150, 0), 500);
 
   //camera(mouseX, -mouseY, 400.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-
+  waveBehaviour();
   for (int i = 0; i < bulbs.length; i++) {
     pushMatrix();
     bulbs[i].updateDisplay();
@@ -205,35 +211,35 @@ void draw() {
     }
   } else {
     if (flameX < 0 && flameY < 0) {
-     // windZ -= windForce;
+      // windZ -= windForce;
       windX -= windForce;
     }
     if (flameX > 0 && flameY < 0) {
-     // windZ -= windForce;
+      // windZ -= windForce;
       windX += windForce;
     }  
     if (flameX < 0 && flameY > 0) {
-     // windZ += windForce;
+      // windZ += windForce;
       windX -= windForce;
     }  
     if (flameX > 0 && flameY > 0) {
-     // windZ += windForce;
+      // windZ += windForce;
       windX += windForce;
     }
   }
 
   //SENDING DATA TO ARDUINO
-    myPort.write("a" + bulbs[0].brightness);
-    myPort.write("b" + bulbs[1].brightness);
-    myPort.write("c" + bulbs[2].brightness);
-    myPort.write("d" + bulbs[3].brightness);
-    myPort.write("e" + bulbs[4].brightness);
-    myPort.write("f" + bulbs[5].brightness);
-    myPort.write("g" + bulbs[6].brightness);
-    myPort.write("h" + bulbs[7].brightness);
+  myPort.write("a" + bulbs[0].brightness);
+  myPort.write("b" + bulbs[1].brightness);
+  myPort.write("c" + bulbs[2].brightness);
+  myPort.write("d" + bulbs[3].brightness);
+  myPort.write("e" + bulbs[4].brightness);
+  myPort.write("f" + bulbs[5].brightness);
+  myPort.write("g" + bulbs[6].brightness);
+  myPort.write("h" + bulbs[7].brightness);
 
 
- 
+
   //for (int i = 0; i < bulbs.length; i++) {
   //  if (bulbs[i]!= null) {
   //   // if (bulbs[i].brightness != 0) {
@@ -313,21 +319,27 @@ void keyPressed() {
   if (key == 'p') {
     ps.addParticle();
   }
+  if (key == 'o') {
+    wave.reset();
+  }
+
 
   //println(key);
   //println(keyCode);
 }
 void waveBehaviour() {
-  for (int i = 0; i < bulbs.length; i++) {
+  wave.update();
+  wave.display();
+  //for (int i = 0; i < bulbs.length; i++) {
 
-    pushMatrix();
-    bulbs[i].displayWave();
-    popMatrix();
-  }
+  //  pushMatrix();
+  //  bulbs[i].displayWave();
+  //  popMatrix();
+  //}
 
-  for (int i = 0; i < actives.length; i++) {
-    if (actives[i]) {
-      bulbs[i].updateWave();
-    }
-  }
+  //for (int i = 0; i < actives.length; i++) {
+  //  if (actives[i]) {
+  //    bulbs[i].updateWave();
+  //  }
+  //}
 }

@@ -44,6 +44,14 @@ int brightness;
     stroke(1);
     //println(numberParticles);
   }
+  
+  boolean isInsWaveCandle(){
+  if (wave.tsize > Math.sqrt(Math.pow((x - wave.x), 2) + Math.pow((y - wave.y), 2) + Math.pow((z - wave.z), 2))) {
+        return true;
+      } else {
+        return false;
+      }
+  }
   //CHECK IF THE BULB IN THE WAVE
   void IsIns() {
     for (int i = 0; i < bulbs.length; i++) {
