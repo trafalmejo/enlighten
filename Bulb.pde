@@ -39,7 +39,13 @@ class Bulb {
       brightness = int(map(numberParticles, 0, bright, 0, 254));
       fill(brightness, brightness, 0);
     }
-
+    if (isInWaveCandle()) {
+      float a = position.dist(waveCandle.positionW)-waveCandle.tsize;
+      a = map(a,position.dist(waveCandle.positionW),0,0,100);
+      //println(a);
+      brightness += a;
+      fill(brightness, brightness, 0);
+    }    
     //println(waveCandle.tsize);
     sphereDetail(res);
     sphere(size);
