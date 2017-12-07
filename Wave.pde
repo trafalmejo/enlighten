@@ -33,7 +33,7 @@ class Wave {
     
     if (!once) {
       angle++;
-      tsize += 3+map(cos(angle),-1,1,-3,3);
+      tsize += 3+map(cos(angle),-1,1,-5,5);
      // tsize += 4 ;
 
     }

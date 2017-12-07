@@ -18,6 +18,7 @@ import processing.serial.*;
 PeasyCam cam;
 ParticleSystem ps;
 
+
 //DATA FROM ARDUINO
 int flameX = 0;
 int flameY=0;
@@ -47,6 +48,7 @@ int bright = 5;
 
 //WAVE CANDLE
 Wave waveCandle;
+int toleranceZero = 5;
 
 
 //SET PYRAMID UPSIDE DOWN
@@ -147,7 +149,7 @@ void draw() {
        */
 
       lightSensor = split(serial, ',');  //a new array (called 'a') that stores values into separate cells (separated by commas specified in your Arduino program)
-      x1 = Integer.parseInt(lightSensor[0].trim());
+      x1 = Integer.parseInt(lightSensor[0].trim())-14;
       y1 = Integer.parseInt(lightSensor[1].trim());
       x2 = Integer.parseInt(lightSensor[2].trim());
       y2 = Integer.parseInt(lightSensor[3].trim());
@@ -157,6 +159,7 @@ void draw() {
     }
   }
 
+  println(x1+ "," + y1 + "," + x2 + "," +y2);
 
   flameX = (x2 - x1);
   flameY = (y2 - y1);
@@ -184,7 +187,7 @@ void draw() {
   //drawVector(wind, new PVector(0, -150, 0), 500);
 
   //camera(mouseX, -mouseY, 400.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-   waveBehaviour();    
+  waveBehaviour();    
 
   for (int i = 0; i < bulbs.length; i++) {
     pushMatrix();
@@ -217,19 +220,19 @@ void draw() {
       windX += windForce;
     }
   } else {
-    if (flameX < 0 && flameY < 0) {
+    if (flameX < -toleranceZero && flameY < -toleranceZero) {
       // windZ -= windForce;
       windX -= windForce;
     }
-    if (flameX > 0 && flameY < 0) {
+    if (flameX > toleranceZero && flameY < -toleranceZero) {
       // windZ -= windForce;
       windX += windForce;
     }  
-    if (flameX < 0 && flameY > 0) {
+    if (flameX < -toleranceZero && flameY > toleranceZero) {
       // windZ += windForce;
       windX -= windForce;
     }  
-    if (flameX > 0 && flameY > 0) {
+    if (flameX > toleranceZero && flameY > toleranceZero) {
       // windZ += windForce;
       windX += windForce;
     }
@@ -237,6 +240,14 @@ void draw() {
 
   //SENDING DATA TO ARDUINO
   if (connected) {
+    int actualLight = x1+x2+y1+y2;
+    println("Light level:" + actualLight);
+    if (actualLight > 3700) {
+      pause = true;
+    } else {
+      pause = false;
+    }
+
     myPort.write("a" + bulbs[0].brightness);
     myPort.write("b" + bulbs[1].brightness);
     myPort.write("c" + bulbs[2].brightness);
