@@ -1,15 +1,4 @@
 
-//COLOR
-//SMELL 
-//DETAIL
-//SOUND
-//MOTION
-
-//REMOVE BLUE
-//REMOVE MOTION
-//REMOVE DETAIL
-
-
 import peasy.*;
 import processing.serial.*;
 
@@ -79,15 +68,23 @@ int toleranceZero = 5;
 //Bulb bulb07 = new Bulb(25, -60, 0, bsize);
 //Bulb bulb08 = new Bulb(35, -60, 0, bsize);
 //SET LINEAR CLOSER
-Bulb bulb01 = new Bulb(-28, -60, 0, bsize);
-Bulb bulb02 = new Bulb(-20, -60, 0, bsize);
-Bulb bulb03 = new Bulb(-12, -60, 0, bsize);
-Bulb bulb04 = new Bulb(-4, -60, 0, bsize);
-Bulb bulb05 = new Bulb(4, -60, 0, bsize);
-Bulb bulb06 = new Bulb(12, -60, 0, bsize);
-Bulb bulb07 = new Bulb(20, -60, 0, bsize);
-Bulb bulb08 = new Bulb(28, -60, 0, bsize);
-
+//Bulb bulb01 = new Bulb(-28, -60, 0, bsize);
+//Bulb bulb02 = new Bulb(-20, -60, 0, bsize);
+//Bulb bulb03 = new Bulb(-12, -60, 0, bsize);
+//Bulb bulb04 = new Bulb(-4, -60, 0, bsize);
+//Bulb bulb05 = new Bulb(4, -60, 0, bsize);
+//Bulb bulb06 = new Bulb(12, -60, 0, bsize);
+//Bulb bulb07 = new Bulb(20, -60, 0, bsize);
+//Bulb bulb08 = new Bulb(28, -60, 0, bsize);
+// SET OCTAGON
+Bulb bulb01 = new Bulb(10, -40, 0, bsize);
+Bulb bulb02 = new Bulb(10, -20, -10, bsize);
+Bulb bulb03 = new Bulb(0, -40, -10, bsize);
+Bulb bulb04 = new Bulb(-10, -20, -10, bsize);
+Bulb bulb05 = new Bulb(-10, -40, 0, bsize);
+Bulb bulb06 = new Bulb(-10, -20, 10, bsize);
+Bulb bulb07 = new Bulb(10, -20, 10, bsize);
+Bulb bulb08 = new Bulb(0, -40, 10, bsize);
 void settings()
 {  
   size(1280, 720, P3D);
