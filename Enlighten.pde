@@ -42,7 +42,7 @@ int bright = 5;
 
 //WAVE CANDLE
 Wave waveCandle;
-int toleranceZero = 5;
+int toleranceZero = 50;
 
 
 //SET PYRAMID UPSIDE DOWN
@@ -125,13 +125,13 @@ void setup() {
     serial1 = myPort1.readStringUntil(end); // function that reads the string from serial port until a println and then assigns string to our string variable (called 'serial')
     serial1 = null; // initially, the string will be null (empty)
 
-    if(Serial.list().length > 1){
-    String portName2 = Serial.list()[1];
-    myPort2 = new Serial(this, portName2, 38400);
-    myPort2.clear();  // function from serial library that throws out the first reading, in case we started reading in the middle of a string from Arduino
-    serial2 = myPort2.readStringUntil(end); // function that reads the string from serial port until a println and then assigns string to our string variable (called 'serial')
-    serial2 = null; // initially, the string will be null (empty)
-    extension = true;
+    if (Serial.list().length > 1) {
+      String portName2 = Serial.list()[1];
+      myPort2 = new Serial(this, portName2, 38400);
+      myPort2.clear();  // function from serial library that throws out the first reading, in case we started reading in the middle of a string from Arduino
+      serial2 = myPort2.readStringUntil(end); // function that reads the string from serial port until a println and then assigns string to our string variable (called 'serial')
+      serial2 = null; // initially, the string will be null (empty)
+      extension = true;
     }
 
     connected = true;
@@ -191,15 +191,15 @@ void draw() {
       lightSensor = split(serial1, ',');  //a new array (called 'a') that stores values into separate cells (separated by commas specified in your Arduino program)
       x1 = Integer.parseInt(lightSensor[0].trim());
       y1 = Integer.parseInt(lightSensor[1].trim());
-      x2 = Integer.parseInt(lightSensor[2].trim())+22;
-      y2 = Integer.parseInt(lightSensor[3].trim())+100;
+      x2 = Integer.parseInt(lightSensor[2].trim());
+      y2 = Integer.parseInt(lightSensor[3].trim());
       //toArduino = Integer.parseInt(lightSensor[4].trim());
       //toArduino2 = Integer.parseInt(lightSensor[5].trim());
       //println(lightSensor[0] + "," + lightSensor[1] + "," + lightSensor[2] + "," +lightSensor[3]);
     }
   }
 
-  println(x1+ "," + y1 + "," + x2 + "," +y2);
+ // println(x1+ "," + y1 + "," + x2 + "," +y2);
 
   flameX = (x2 - x1);
   flameY = (y2 - y1);
@@ -281,9 +281,9 @@ void draw() {
   //SENDING DATA TO ARDUINO
   if (connected) {
     int actualLight = x1+x2+y1+y2;
-    //println("Light level:" + actualLight);
+   // println("Light level:" + actualLight);
     //println(millis());
-    if (actualLight > 3700) {
+    if (actualLight > 3600) {
       pause = true;
     } else {
       pause = false;
@@ -297,19 +297,19 @@ void draw() {
     myPort1.write("f" + bulbs[5].brightness);
     myPort1.write("g" + bulbs[6].brightness);
     myPort1.write("h" + bulbs[7].brightness);
-    
-    if(extension){
-    myPort2.write("a" + bulbs[8].brightness);
-    myPort2.write("b" + bulbs[9].brightness);
-    myPort2.write("c" + bulbs[10].brightness);
-    myPort2.write("d" + bulbs[11].brightness);
-    myPort2.write("e" + bulbs[12].brightness);
-    myPort2.write("f" + bulbs[13].brightness);
-    myPort2.write("g" + bulbs[14].brightness);
-    myPort2.write("h" + bulbs[15].brightness);
+
+    if (extension) {
+      myPort2.write("a" + bulbs[8].brightness);
+      myPort2.write("b" + bulbs[9].brightness);
+      myPort2.write("c" + bulbs[10].brightness);
+      myPort2.write("d" + bulbs[11].brightness);
+      myPort2.write("e" + bulbs[12].brightness);
+      myPort2.write("f" + bulbs[13].brightness);
+      myPort2.write("g" + bulbs[14].brightness);
+      myPort2.write("h" + bulbs[15].brightness);
     }
     //println("Sending: " + bulbs[0].brightness + ", "+  bulbs[1].brightness + ", "+ bulbs[2].brightness + ", "+ bulbs[3].brightness + ", "+ bulbs[4].brightness + ", "+ bulbs[5].brightness + ", "+ bulbs[6].brightness + ", "+ bulbs[7].brightness);
-    //println("Sending: " + bulbs[8].brightness + ", "+  bulbs[9].brightness + ", "+ bulbs[10].brightness + ", "+ bulbs[11].brightness + ", "+ bulbs[12].brightness + ", "+ bulbs[13].brightness + ", "+ bulbs[14].brightness + ", "+ bulbs[15].brightness);
+    println("Sending: " + bulbs[8].brightness + ", "+  bulbs[9].brightness + ", "+ bulbs[10].brightness + ", "+ bulbs[11].brightness + ", "+ bulbs[12].brightness + ", "+ bulbs[13].brightness + ", "+ bulbs[14].brightness + ", "+ bulbs[15].brightness);
   }
   //println(wave.tsize);
   //PRINT VALUES OF BRIGHTNESS
