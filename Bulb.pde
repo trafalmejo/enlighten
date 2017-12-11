@@ -36,14 +36,19 @@ class Bulb {
     } else {
       //fill(255, 255, 0);
       //println(numberParticles);
-      brightness = int(map(numberParticles, 0, bright, 0, 254));
+      brightness = 255;
+      //brightness = int(map(numberParticles, 0, bright, 0, 255));
       fill(brightness, brightness, 0);
     }
     if (isInWaveCandle()) {
       float a = position.dist(waveCandle.positionW)-waveCandle.tsize;
-      a = map(a,position.dist(waveCandle.positionW),0,0,100);
+      a = map(a, position.dist(waveCandle.positionW), 0, 0, 100);
       //println(a);
-      brightness += a;
+      //brightness += a;
+      brightness = 255;
+      if (brightness > 255) {
+        brightness = 255;
+      }
       fill(brightness, brightness, 0);
     }    
     //println(waveCandle.tsize);

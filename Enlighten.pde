@@ -11,10 +11,13 @@ ParticleSystem ps;
 //DATA FROM ARDUINO
 int flameX = 0;
 int flameY=0;
-Serial myPort;  // Create object from Serial class
+Serial myPort1;  // Create object from Serial class
+Serial myPort2;  // Create object from Serial class
+
+boolean extension = false;
 boolean connected = false;
 int end = 10;    // the number 10 is ASCII for linefeed (end of serial.println), later we will look for this to break up individual messages
-String serial;   // declare a new string called 'serial' . A string is a sequence of characters (data type know as "char")
+String serial1, serial2;   // declare a new string called 'serial' . A string is a sequence of characters (data type know as "char")
 String [] lightSensor;
 int x1, x2, y1, y2;
 int xx = 0;
@@ -32,7 +35,9 @@ boolean actives[] = {false, false, false, false, false, false, false, false};
 int scene = 200;
 boolean pause;
 Bulb temp =  null;
-Bulb bulbs[] = new Bulb[8];
+//Bulb bulbs[] = new Bulb[8];
+Bulb bulbs[] = new Bulb[16];
+
 int bright = 5;
 
 //WAVE CANDLE
@@ -77,14 +82,33 @@ int toleranceZero = 5;
 //Bulb bulb07 = new Bulb(20, -60, 0, bsize);
 //Bulb bulb08 = new Bulb(28, -60, 0, bsize);
 // SET OCTAGON
-Bulb bulb01 = new Bulb(10, -40, 0, bsize);
-Bulb bulb02 = new Bulb(10, -60, -10, bsize);
-Bulb bulb03 = new Bulb(0, -40, -10, bsize);
-Bulb bulb04 = new Bulb(-10, -60, -10, bsize);
-Bulb bulb05 = new Bulb(-10, -40, 0, bsize);
-Bulb bulb06 = new Bulb(-10, -60, 10, bsize);
-Bulb bulb07 = new Bulb(10, -60, 10, bsize);
-Bulb bulb08 = new Bulb(0, -40, 10, bsize);
+//Bulb bulb01 = new Bulb(10, -40, 0, bsize);
+//Bulb bulb02 = new Bulb(10, -60, -10, bsize);
+//Bulb bulb03 = new Bulb(0, -40, -10, bsize);
+//Bulb bulb04 = new Bulb(-10, -60, -10, bsize);
+//Bulb bulb05 = new Bulb(-10, -40, 0, bsize);
+//Bulb bulb06 = new Bulb(-10, -60, 10, bsize);
+//Bulb bulb07 = new Bulb(10, -60, 10, bsize);
+//Bulb bulb08 = new Bulb(0, -40, 10, bsize);
+// 16 BULBS
+//FIRST ARDUINO
+Bulb bulb01 = new Bulb(-12, -60, 4, bsize);
+Bulb bulb02 = new Bulb(-4, -60, 4, bsize);
+Bulb bulb03 = new Bulb(4, -60, 4, bsize);
+Bulb bulb04 = new Bulb(12, -60, 4, bsize);
+Bulb bulb05 = new Bulb(12, -60, -12, bsize);
+Bulb bulb06 = new Bulb(4, -60, -12, bsize);
+Bulb bulb07 = new Bulb(-4, -60, -12, bsize);
+Bulb bulb08 = new Bulb(-12, -60, -12, bsize);
+//SECOND ARDUINO
+Bulb bulb09 = new Bulb(-12, -60, 12, bsize);
+Bulb bulb10 = new Bulb(-4, -60, 12, bsize);
+Bulb bulb11 = new Bulb(4, -60, 12, bsize);
+Bulb bulb12 = new Bulb(12, -60, 12, bsize);
+Bulb bulb13 = new Bulb(12, -60, -4, bsize);
+Bulb bulb14 = new Bulb(4, -60, -4, bsize);
+Bulb bulb15 = new Bulb(-4, -60, -4, bsize);
+Bulb bulb16 = new Bulb(-12, -60, -4, bsize);
 void settings()
 {  
   size(1280, 720, P3D);
@@ -95,11 +119,21 @@ void setup() {
   //  println(Serial.list()[i]);
   //}
   if (Serial.list().length != 0) {
-    String portName = Serial.list()[0]; //change the 0 to a 1 or 2 etc. to match your port
-    myPort = new Serial(this, portName, 9600);
-    myPort.clear();  // function from serial library that throws out the first reading, in case we started reading in the middle of a string from Arduino
-    serial = myPort.readStringUntil(end); // function that reads the string from serial port until a println and then assigns string to our string variable (called 'serial')
-    serial = null; // initially, the string will be null (empty)
+    String portName1 = Serial.list()[0]; //change the 0 to a 1 or 2 etc. to match your port
+    myPort1 = new Serial(this, portName1, 9600);
+    myPort1.clear();  // function from serial library that throws out the first reading, in case we started reading in the middle of a string from Arduino
+    serial1 = myPort1.readStringUntil(end); // function that reads the string from serial port until a println and then assigns string to our string variable (called 'serial')
+    serial1 = null; // initially, the string will be null (empty)
+
+    if(Serial.list().length > 1){
+    String portName2 = Serial.list()[1];
+    myPort2 = new Serial(this, portName2, 38400);
+    myPort2.clear();  // function from serial library that throws out the first reading, in case we started reading in the middle of a string from Arduino
+    serial2 = myPort2.readStringUntil(end); // function that reads the string from serial port until a println and then assigns string to our string variable (called 'serial')
+    serial2 = null; // initially, the string will be null (empty)
+    extension = true;
+    }
+
     connected = true;
   } else {
     println("Nothing connected");
@@ -124,6 +158,15 @@ void setup() {
   bulbs[5] = (bulb06);
   bulbs[6] = (bulb07);
   bulbs[7] = (bulb08);
+  bulbs[8] = (bulb09);
+  bulbs[9] = (bulb10);
+  bulbs[10] = (bulb11);
+  bulbs[11] = (bulb12);
+  bulbs[12] = (bulb13);
+  bulbs[13] = (bulb14);
+  bulbs[14] = (bulb15);
+  bulbs[15] = (bulb16);
+
 
   //ORIGIN VECTOR
   ps = new ParticleSystem(0, new PVector(0, 0, 0), createShape());
@@ -136,20 +179,20 @@ void setup() {
 
 void draw() {
   if (connected) {
-    while (myPort.available() > 0) { //as long as there is data coming from serial port, read it and store it 
-      serial = myPort.readStringUntil(end);
+    while (myPort1.available() > 0 ) { //as long as there is data coming from serial port, read it and store it 
+      serial1 = myPort1.readStringUntil(end);
     }
-    if (serial != null) {  //if the string is not empty, print the following
+    if (serial1 != null) {  //if the string is not empty, print the following
 
       /*  Note: the split function used below is not necessary if sending only a single variable. However, it is useful for parsing (separating) messages when
        reading from multiple inputs in Arduino. Below is example code for an Arduino sketch
        */
 
-      lightSensor = split(serial, ',');  //a new array (called 'a') that stores values into separate cells (separated by commas specified in your Arduino program)
-      x1 = Integer.parseInt(lightSensor[0].trim())-14;
+      lightSensor = split(serial1, ',');  //a new array (called 'a') that stores values into separate cells (separated by commas specified in your Arduino program)
+      x1 = Integer.parseInt(lightSensor[0].trim());
       y1 = Integer.parseInt(lightSensor[1].trim());
-      x2 = Integer.parseInt(lightSensor[2].trim());
-      y2 = Integer.parseInt(lightSensor[3].trim());
+      x2 = Integer.parseInt(lightSensor[2].trim())+22;
+      y2 = Integer.parseInt(lightSensor[3].trim())+100;
       //toArduino = Integer.parseInt(lightSensor[4].trim());
       //toArduino2 = Integer.parseInt(lightSensor[5].trim());
       //println(lightSensor[0] + "," + lightSensor[1] + "," + lightSensor[2] + "," +lightSensor[3]);
@@ -238,21 +281,35 @@ void draw() {
   //SENDING DATA TO ARDUINO
   if (connected) {
     int actualLight = x1+x2+y1+y2;
-    println("Light level:" + actualLight);
+    //println("Light level:" + actualLight);
+    //println(millis());
     if (actualLight > 3700) {
       pause = true;
     } else {
       pause = false;
     }
 
-    myPort.write("a" + bulbs[0].brightness);
-    myPort.write("b" + bulbs[1].brightness);
-    myPort.write("c" + bulbs[2].brightness);
-    myPort.write("d" + bulbs[3].brightness);
-    myPort.write("e" + bulbs[4].brightness);
-    myPort.write("f" + bulbs[5].brightness);
-    myPort.write("g" + bulbs[6].brightness);
-    myPort.write("h" + bulbs[7].brightness);
+    myPort1.write("a" + bulbs[0].brightness);
+    myPort1.write("b" + bulbs[1].brightness);
+    myPort1.write("c" + bulbs[2].brightness);
+    myPort1.write("d" + bulbs[3].brightness);
+    myPort1.write("e" + bulbs[4].brightness);
+    myPort1.write("f" + bulbs[5].brightness);
+    myPort1.write("g" + bulbs[6].brightness);
+    myPort1.write("h" + bulbs[7].brightness);
+    
+    if(extension){
+    myPort2.write("a" + bulbs[8].brightness);
+    myPort2.write("b" + bulbs[9].brightness);
+    myPort2.write("c" + bulbs[10].brightness);
+    myPort2.write("d" + bulbs[11].brightness);
+    myPort2.write("e" + bulbs[12].brightness);
+    myPort2.write("f" + bulbs[13].brightness);
+    myPort2.write("g" + bulbs[14].brightness);
+    myPort2.write("h" + bulbs[15].brightness);
+    }
+    //println("Sending: " + bulbs[0].brightness + ", "+  bulbs[1].brightness + ", "+ bulbs[2].brightness + ", "+ bulbs[3].brightness + ", "+ bulbs[4].brightness + ", "+ bulbs[5].brightness + ", "+ bulbs[6].brightness + ", "+ bulbs[7].brightness);
+    //println("Sending: " + bulbs[8].brightness + ", "+  bulbs[9].brightness + ", "+ bulbs[10].brightness + ", "+ bulbs[11].brightness + ", "+ bulbs[12].brightness + ", "+ bulbs[13].brightness + ", "+ bulbs[14].brightness + ", "+ bulbs[15].brightness);
   }
   //println(wave.tsize);
   //PRINT VALUES OF BRIGHTNESS
@@ -261,7 +318,7 @@ void draw() {
   //}
   //println();
 }
-//
+//p
 
 // Renders a vector object 'v' as an arrow and a position 'loc'
 void drawVector(PVector v, PVector loc, float scayl) {
