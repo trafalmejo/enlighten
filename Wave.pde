@@ -10,6 +10,10 @@ class Wave {
   float vs = 0.0;  // Velocity
   float as = 0;    // Acceleration
   float f = 0;     // Force
+  //TO TEST EVERY BULB
+  //int maxSize = 5;
+    int maxSize = 90;
+
 
   float x, y, z;
   float tsize = 0;
@@ -33,11 +37,11 @@ class Wave {
     
     if (!once) {
       angle++;
-      tsize += 3+map(cos(angle),-1,1,-5,5);
+      tsize += 1+map(cos(angle),-1,1,-3,3);
      // tsize += 4 ;
 
     }
-    if (tsize > 150) {
+    if (tsize > maxSize) {
       reset();
       once = true;
     }

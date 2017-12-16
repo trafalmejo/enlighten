@@ -1,6 +1,6 @@
 class Bulb { 
   float x, y, z; 
-  boolean ins[] = {false, false, false, false, false, false, false, false};
+  boolean ins[] = new boolean[16];
   boolean in = false;
   int res = 5;
   boolean onFire = false;
@@ -17,13 +17,16 @@ class Bulb {
     position = new PVector(xp, yp, zp);
     size = tamp;
     wave = new Wave(x, y, z);
+    for (int i = 0; i < bulbs.length; i++) {
+      ins[i] = false;
+    }
 
     //wave.start();
   } 
   void updateDisplay() {
 
-    //IsIns();
-    //isIn();
+    IsIns();
+    isIn();
     translate(x, y, z);
     tsize = wave.tsize;
     numberParticles = particlesIn();
@@ -40,7 +43,7 @@ class Bulb {
       //brightness = int(map(numberParticles, 0, bright, 0, 255));
       fill(brightness, brightness, 0);
     }
-    if (isInWaveCandle()) {
+    if (isInWaveCandle() || in) {
       float a = position.dist(waveCandle.positionW)-waveCandle.tsize;
       a = map(a, position.dist(waveCandle.positionW), 0, 0, 100);
       //println(a);

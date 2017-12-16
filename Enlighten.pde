@@ -1,7 +1,15 @@
-
+//1. CHECK THE LIGHT CONDITIONS MIN - MAX
+//2. CHECK THE DIFFERENCE BETWEEN SENSORS (TOLERANCE)
+//3. CHECK THE FORCE OF THE WIND
+//4. 
 import peasy.*;
 import processing.serial.*;
 
+
+int toleranceZero = 50;
+//int minBright = 3100;
+int minBright = 1500;
+float windForce = 0.05;
 
 
 PeasyCam cam;
@@ -28,9 +36,8 @@ int offsetY;
 //WIND AND POSITION
 float x, y, z;
 float windX, windZ = 0;
-float windForce = 0.05;
 int bsize = 5;
-boolean actives[] = {false, false, false, false, false, false, false, false};
+boolean actives[] = {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
 //SCENE SIZE
 int scene = 200;
 boolean pause;
@@ -42,7 +49,6 @@ int bright = 5;
 
 //WAVE CANDLE
 Wave waveCandle;
-int toleranceZero = 50;
 
 
 //SET PYRAMID UPSIDE DOWN
@@ -199,7 +205,7 @@ void draw() {
     }
   }
 
- // println(x1+ "," + y1 + "," + x2 + "," +y2);
+   println(x1+ "," + y1 + "," + x2 + "," +y2);
 
   flameX = (x2 - x1);
   flameY = (y2 - y1);
@@ -261,19 +267,19 @@ void draw() {
     }
   } else {
     if (flameX < -toleranceZero && flameY < -toleranceZero) {
-      // windZ -= windForce;
+      windZ += windForce;
       windX -= windForce;
     }
     if (flameX > toleranceZero && flameY < -toleranceZero) {
-      // windZ -= windForce;
+       windZ += windForce;
       windX += windForce;
     }  
     if (flameX < -toleranceZero && flameY > toleranceZero) {
-      // windZ += windForce;
+      windZ -= windForce;
       windX -= windForce;
     }  
     if (flameX > toleranceZero && flameY > toleranceZero) {
-      // windZ += windForce;
+      windZ -= windForce;
       windX += windForce;
     }
   }
@@ -281,9 +287,9 @@ void draw() {
   //SENDING DATA TO ARDUINO
   if (connected) {
     int actualLight = x1+x2+y1+y2;
-   // println("Light level:" + actualLight);
+    // println("Light level:" + actualLight);
     //println(millis());
-    if (actualLight > 3600) {
+    if (actualLight > minBright) {
       pause = true;
     } else {
       pause = false;
@@ -309,7 +315,7 @@ void draw() {
       myPort2.write("h" + bulbs[15].brightness);
     }
     //println("Sending: " + bulbs[0].brightness + ", "+  bulbs[1].brightness + ", "+ bulbs[2].brightness + ", "+ bulbs[3].brightness + ", "+ bulbs[4].brightness + ", "+ bulbs[5].brightness + ", "+ bulbs[6].brightness + ", "+ bulbs[7].brightness);
-    println("Sending: " + bulbs[8].brightness + ", "+  bulbs[9].brightness + ", "+ bulbs[10].brightness + ", "+ bulbs[11].brightness + ", "+ bulbs[12].brightness + ", "+ bulbs[13].brightness + ", "+ bulbs[14].brightness + ", "+ bulbs[15].brightness);
+   // println("Sending: " + bulbs[8].brightness + ", "+  bulbs[9].brightness + ", "+ bulbs[10].brightness + ", "+ bulbs[11].brightness + ", "+ bulbs[12].brightness + ", "+ bulbs[13].brightness + ", "+ bulbs[14].brightness + ", "+ bulbs[15].brightness);
   }
   //println(wave.tsize);
   //PRINT VALUES OF BRIGHTNESS
@@ -344,38 +350,70 @@ void drawVector(PVector v, PVector loc, float scayl) {
   popMatrix();
 }
 void keyPressed() {
-  //if (key == 49) {
-  //  actives[0] = true;
-  //  bulbs[0].wave.reset();
-  //}
-  //if (key == 50) {
-  //  actives[1] = true;
-  //  bulbs[1].wave.reset();
-  //}
-  //if (key == 51) {
-  //  actives[2] = true;
-  //  bulbs[2].wave.reset();
-  //}
-  //if (key == 52) {
-  //  actives[3] = true;
-  //  bulbs[3].wave.reset();
-  //}
-  //if (key == 53) {
-  //  actives[4] = true;
-  //  bulbs[4].wave.reset();
-  //}
-  //if (key == 54) {
-  //  actives[5] = true;
-  //  bulbs[5].wave.reset();
-  //}
-  //if (key == 55) {
-  //  actives[6] = true;
-  //  bulbs[6].wave.reset();
-  //}
-  //if (key == 56) {
-  //  actives[7] = true;
-  //  bulbs[7].wave.reset();
-  //}
+  if (key == '1') {
+    actives[0] = true;
+    bulbs[0].wave.reset();
+  }
+  if (key == '2') {
+    actives[1] = true;
+    bulbs[1].wave.reset();
+  }
+  if (key == '3') {
+    actives[2] = true;
+    bulbs[2].wave.reset();
+  }
+  if (key == '4') {
+    actives[3] = true;
+    bulbs[3].wave.reset();
+  }
+  if (key == '5') {
+    actives[4] = true;
+    bulbs[4].wave.reset();
+  }
+  if (key == '6') {
+    actives[5] = true;
+    bulbs[5].wave.reset();
+  }
+  if (key == '7') {
+    actives[6] = true;
+    bulbs[6].wave.reset();
+  }
+  if (key == '8') {
+    actives[7] = true;
+    bulbs[7].wave.reset();
+  }
+  if (key == 'q') {
+    actives[8] = true;
+    bulbs[8].wave.reset();
+  }
+  if (key == 'w') {
+    actives[9] = true;
+    bulbs[9].wave.reset();
+  }
+  if (key == 'e') {
+    actives[10] = true;
+    bulbs[10].wave.reset();
+  }  
+  if (key == 'r') {
+    actives[11] = true;
+    bulbs[11].wave.reset();
+  }  
+  if (key == 't') {
+    actives[12] = true;
+    bulbs[12].wave.reset();
+  }  
+  if (key == 'y') {
+    actives[13] = true;
+    bulbs[13].wave.reset();
+  }  
+  if (key == 'u') {
+    actives[14] = true;
+    bulbs[14].wave.reset();
+  }  
+  if (key == 'i') {
+    actives[15] = true;
+    bulbs[15].wave.reset();
+  }
   if (key == 57) {
     pause = !pause;
   }
@@ -393,16 +431,14 @@ void keyPressed() {
 void waveBehaviour() {
   waveCandle.update();
   waveCandle.display();
-  //for (int i = 0; i < bulbs.length; i++) {
-
-  //  pushMatrix();
-  //  bulbs[i].displayWave();
-  //  popMatrix();
-  //}
-
-  //for (int i = 0; i < actives.length; i++) {
-  //  if (actives[i]) {
-  //    bulbs[i].updateWave();
-  //  }
-  //}
+  for (int i = 0; i < bulbs.length; i++) {
+    pushMatrix();
+    bulbs[i].displayWave();
+    popMatrix();
+  }
+  for (int i = 0; i < actives.length; i++) {
+    if (actives[i]) {
+      bulbs[i].updateWave();
+    }
+  }
 }
