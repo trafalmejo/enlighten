@@ -15,7 +15,9 @@ class Particle {
     float vx = randomGaussian()*0.08;
     float vy = -2;
     float vz = randomGaussian()*0.08;
-
+    //float vx =  0;
+    //float vy = -2;
+    //float vz = 0;
 
     vel = new PVector(vx, vy, vz);
     loc = l.copy();

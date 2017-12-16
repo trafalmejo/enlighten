@@ -5,11 +5,12 @@
 import peasy.*;
 import processing.serial.*;
 
+int toleranceZeroX = 120;
 
-int toleranceZero = 50;
+//int toleranceZero = 50;
 //int minBright = 3100;
-int minBright = 1500;
-float windForce = 0.05;
+int minBright = 600;
+float windForce = 0.04;
 
 
 PeasyCam cam;
@@ -46,7 +47,10 @@ Bulb temp =  null;
 Bulb bulbs[] = new Bulb[16];
 
 int bright = 5;
-
+int maxX1 = 0;
+int maxX2 = 0;
+int maxZ1 = 0;
+int maxZ2 = 0;
 //WAVE CANDLE
 Wave waveCandle;
 
@@ -102,15 +106,15 @@ Bulb bulb01 = new Bulb(-12, -60, 4, bsize);
 Bulb bulb02 = new Bulb(-4, -60, 4, bsize);
 Bulb bulb03 = new Bulb(4, -60, 4, bsize);
 Bulb bulb04 = new Bulb(12, -60, 4, bsize);
-Bulb bulb05 = new Bulb(12, -60, -12, bsize);
+Bulb bulb05 = new Bulb(8, -60, -8, bsize);
 Bulb bulb06 = new Bulb(4, -60, -12, bsize);
 Bulb bulb07 = new Bulb(-4, -60, -12, bsize);
-Bulb bulb08 = new Bulb(-12, -60, -12, bsize);
+Bulb bulb08 = new Bulb(-8, -60, -8, bsize);
 //SECOND ARDUINO
-Bulb bulb09 = new Bulb(-12, -60, 12, bsize);
+Bulb bulb09 = new Bulb(-8, -60, 8, bsize);
 Bulb bulb10 = new Bulb(-4, -60, 12, bsize);
 Bulb bulb11 = new Bulb(4, -60, 12, bsize);
-Bulb bulb12 = new Bulb(12, -60, 12, bsize);
+Bulb bulb12 = new Bulb(8, -60, 8, bsize);
 Bulb bulb13 = new Bulb(12, -60, -4, bsize);
 Bulb bulb14 = new Bulb(4, -60, -4, bsize);
 Bulb bulb15 = new Bulb(-4, -60, -4, bsize);
@@ -196,7 +200,7 @@ void draw() {
 
       lightSensor = split(serial1, ',');  //a new array (called 'a') that stores values into separate cells (separated by commas specified in your Arduino program)
       x1 = Integer.parseInt(lightSensor[0].trim());
-      y1 = Integer.parseInt(lightSensor[1].trim());
+      y1 = Integer.parseInt(lightSensor[1].trim())+223;
       x2 = Integer.parseInt(lightSensor[2].trim());
       y2 = Integer.parseInt(lightSensor[3].trim());
       //toArduino = Integer.parseInt(lightSensor[4].trim());
@@ -204,13 +208,29 @@ void draw() {
       //println(lightSensor[0] + "," + lightSensor[1] + "," + lightSensor[2] + "," +lightSensor[3]);
     }
   }
+  //if(x1 > maxX1){
+  //maxX1 = x1;
+  //}
+  //  if(x2 > maxX2){
+  //maxX2 = x2;
+  //}
+  //  if(y1 > maxZ1){
+  //maxZ1 = y1;
+  //}
+  //  if(y2 > maxZ2){
+  //maxZ2 = y2;
+  //}
+  //x1 = int(map(x1, 0, maxX1, 0, 1023));
+  //x2 = int(map(x2, 0, maxX2, 0, 1023));
+  //y1 = int(map(y1, 0, maxZ1, 0, 1023));
+  //y2 = int(map(y2, 0, maxZ2, 0, 1023));
 
-   println(x1+ "," + y1 + "," + x2 + "," +y2);
 
   flameX = (x2 - x1);
   flameY = (y2 - y1);
-  //println(flameX);
-  //println(flameY);
+  println(x1+ "," + y1 + "," + x2 + "," +y2);
+  println("X: " + flameX);
+  println("Z: " + flameY);
 
 
   background(150);
@@ -251,6 +271,24 @@ void draw() {
   windX=0;
   windZ=0;
 
+
+  //    if (flameX < -toleranceZeroX && flameY < -toleranceZeroX) {
+  //      windZ -= windForce;
+  //      windX -= windForce;
+  //    }
+  //    if (flameX > toleranceZeroX && flameY < -toleranceZeroX) {
+  //      windZ -= windForce;
+  //      windX += windForce;
+  //    }  
+  //    if (flameX < -toleranceZeroX && flameY > toleranceZeroX) {
+  //      windZ += windForce;
+  //      windX -= windForce;
+  //    }  
+  //    if (flameX > toleranceZeroX && flameY > toleranceZeroX) {
+  //      windZ += windForce;
+  //      windX += windForce;
+  //    }
+
   if (keyPressed) {
     if (keyCode == UP) {
       windZ -= windForce;
@@ -266,21 +304,38 @@ void draw() {
       windX += windForce;
     }
   } else {
-    if (flameX < -toleranceZero && flameY < -toleranceZero) {
+
+//    if (flameX < -toleranceZeroX && flameY < -toleranceZeroX) {
+//      windZ -= windForce;
+//      windX -= windForce;
+//      println("1");
+//    }
+//    if (flameX > toleranceZeroX && flameY < -toleranceZeroX) {
+//      windZ -= windForce;
+//      windX += windForce;
+//      println("2");
+//    }  
+//    if (flameX < -toleranceZeroX && flameY > toleranceZeroX) {
+//      windZ += windForce;
+//      windX -= windForce;
+//      println("3");
+//    }  
+//    if (flameX > toleranceZeroX && flameY > toleranceZeroX) {
+//      windZ += windForce;
+//      windX += windForce;
+//      println("4");
+//    }
+    if (flameY > toleranceZeroX) {
       windZ += windForce;
-      windX -= windForce;
     }
-    if (flameX > toleranceZero && flameY < -toleranceZero) {
-       windZ += windForce;
-      windX += windForce;
-    }  
-    if (flameX < -toleranceZero && flameY > toleranceZero) {
+    if (flameY < -toleranceZeroX) {
       windZ -= windForce;
+    }
+    if (flameX > toleranceZeroX) {
+      windX += windForce;
+    }
+    if (flameX < -toleranceZeroX) {
       windX -= windForce;
-    }  
-    if (flameX > toleranceZero && flameY > toleranceZero) {
-      windZ -= windForce;
-      windX += windForce;
     }
   }
 
@@ -315,7 +370,7 @@ void draw() {
       myPort2.write("h" + bulbs[15].brightness);
     }
     //println("Sending: " + bulbs[0].brightness + ", "+  bulbs[1].brightness + ", "+ bulbs[2].brightness + ", "+ bulbs[3].brightness + ", "+ bulbs[4].brightness + ", "+ bulbs[5].brightness + ", "+ bulbs[6].brightness + ", "+ bulbs[7].brightness);
-   // println("Sending: " + bulbs[8].brightness + ", "+  bulbs[9].brightness + ", "+ bulbs[10].brightness + ", "+ bulbs[11].brightness + ", "+ bulbs[12].brightness + ", "+ bulbs[13].brightness + ", "+ bulbs[14].brightness + ", "+ bulbs[15].brightness);
+    // println("Sending: " + bulbs[8].brightness + ", "+  bulbs[9].brightness + ", "+ bulbs[10].brightness + ", "+ bulbs[11].brightness + ", "+ bulbs[12].brightness + ", "+ bulbs[13].brightness + ", "+ bulbs[14].brightness + ", "+ bulbs[15].brightness);
   }
   //println(wave.tsize);
   //PRINT VALUES OF BRIGHTNESS
