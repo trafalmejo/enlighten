@@ -10,7 +10,7 @@ int toleranceZeroX = 120;
 //int toleranceZero = 50;
 //int minBright = 3100;
 int minBright = 600;
-float windForce = 0.04;
+float windForce = 0.03;
 
 
 PeasyCam cam;
