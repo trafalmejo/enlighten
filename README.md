@@ -1,4 +1,5 @@
-#ENLIGHTEN
+# ENLIGHTEN
+
 Enlighten is a light installation that explores different approaches to interact with nature and installations. This particular example uses fire as a medium to interact with the ilumination with the space.
 The video/image documentation of this project can be found on: https://danielcastano.xyz/portfolio#/enligthen/
 
