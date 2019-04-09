@@ -8,3 +8,6 @@ Bulb: Represent the location and volume of each light bulb
 Particle: Represent the fire particles
 ParticleSystem: Run the particles based on the wind forces.
 Wave: It triggers waves from each of the different light bulbs.
+
+You can find more documentation about the installation on:
+https://danielcastano.xyz/blog/2019/4/9/2ezolepi6duat1mnisj7t5wmi04m4o
