@@ -5,9 +5,13 @@ The video/image documentation of this project can be found on: https://danielcas
 
 The folder contains:
 Enligthen: This is the main Class taking care of listening of the events and triggering the cues
+
 Bulb: Represent the location and volume of each light bulb
+
 Particle: Represent the fire particles
+
 ParticleSystem: Run the particles based on the wind forces.
+
 Wave: It triggers waves from each of the different light bulbs.
 
 You can find more documentation about the installation on:
