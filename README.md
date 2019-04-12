@@ -11,7 +11,7 @@ https://danielcastano.xyz/blog/2019/4/9/2ezolepi6duat1mnisj7t5wmi04m4o
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=X0mm8jbAqIw
 " target="_blank"><img src="http://img.youtube.com/vi/X0mm8jbAqIw/0.jpg" 
-alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+alt="IMAGE ALT TEXT HERE" width="1200" height="900" border="10" /></a>
 
 The folder contains:
 
