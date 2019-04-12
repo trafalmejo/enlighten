@@ -1,7 +1,7 @@
 //1. CHECK THE LIGHT CONDITIONS MIN - MAX
 //2. CHECK THE DIFFERENCE BETWEEN SENSORS (TOLERANCE)
 //3. CHECK THE FORCE OF THE WIND
-//4. 
+//4. CHECK CONNECTED PORTS
 import peasy.*;
 import processing.serial.*;
 
@@ -53,91 +53,46 @@ int maxZ1 = 0;
 int maxZ2 = 0;
 //WAVE CANDLE
 Wave waveCandle;
-
-
-//SET PYRAMID UPSIDE DOWN
-//Bulb bulb01 = new Bulb(7, -50, 7, bsize);
-//Bulb bulb02 = new Bulb(7, -50, -7, bsize);
-//Bulb bulb03 = new Bulb(-7, -50, -7, bsize);
-//Bulb bulb04 = new Bulb(-7, -50, 7, bsize);
-//Bulb bulb05 = new Bulb(-5, -40, 5, bsize);
-//Bulb bulb06 = new Bulb(5, -40, -5, bsize);
-//Bulb bulb07 = new Bulb(5, -40, 5, bsize);
-//Bulb bulb08 = new Bulb(-5, -40, -5, bsize);
-//SET PYRAMID NORMAL
-//Bulb bulb01 = new Bulb(7, -40, 7, bsize);
-//Bulb bulb02 = new Bulb(7, -40, -7, bsize);
-//Bulb bulb03 = new Bulb(-7, -40, -7, bsize);
-//Bulb bulb04 = new Bulb(-7, -40, 7, bsize);
-//Bulb bulb05 = new Bulb(-5, -50, 5, bsize);
-//Bulb bulb06 = new Bulb(5, -50, -5, bsize);
-//Bulb bulb07 = new Bulb(5, -50, 5, bsize);
-//Bulb bulb08 = new Bulb(-5, -50, -5, bsize);
-//SET LINEAR
-//Bulb bulb01 = new Bulb(-35, -60, 0, bsize);
-//Bulb bulb02 = new Bulb(-25, -60, 0, bsize);
-//Bulb bulb03 = new Bulb(-15, -60, 0, bsize);
-//Bulb bulb04 = new Bulb(-5, -60, 0, bsize);
-//Bulb bulb05 = new Bulb(5, -60, 0, bsize);
-//Bulb bulb06 = new Bulb(15, -60, 0, bsize);
-//Bulb bulb07 = new Bulb(25, -60, 0, bsize);
-//Bulb bulb08 = new Bulb(35, -60, 0, bsize);
-//SET LINEAR CLOSER
-//Bulb bulb01 = new Bulb(-28, -60, 0, bsize);
-//Bulb bulb02 = new Bulb(-20, -60, 0, bsize);
-//Bulb bulb03 = new Bulb(-12, -60, 0, bsize);
-//Bulb bulb04 = new Bulb(-4, -60, 0, bsize);
-//Bulb bulb05 = new Bulb(4, -60, 0, bsize);
-//Bulb bulb06 = new Bulb(12, -60, 0, bsize);
-//Bulb bulb07 = new Bulb(20, -60, 0, bsize);
-//Bulb bulb08 = new Bulb(28, -60, 0, bsize);
-// SET OCTAGON
-//Bulb bulb01 = new Bulb(10, -40, 0, bsize);
-//Bulb bulb02 = new Bulb(10, -60, -10, bsize);
-//Bulb bulb03 = new Bulb(0, -40, -10, bsize);
-//Bulb bulb04 = new Bulb(-10, -60, -10, bsize);
-//Bulb bulb05 = new Bulb(-10, -40, 0, bsize);
-//Bulb bulb06 = new Bulb(-10, -60, 10, bsize);
-//Bulb bulb07 = new Bulb(10, -60, 10, bsize);
-//Bulb bulb08 = new Bulb(0, -40, 10, bsize);
 // 16 BULBS
 //FIRST ARDUINO
-Bulb bulb01 = new Bulb(-12, -60, 4, bsize);
-Bulb bulb02 = new Bulb(-4, -60, 4, bsize);
-Bulb bulb03 = new Bulb(4, -60, 4, bsize);
-Bulb bulb04 = new Bulb(12, -60, 4, bsize);
-Bulb bulb05 = new Bulb(8, -60, -8, bsize);
-Bulb bulb06 = new Bulb(4, -60, -12, bsize);
-Bulb bulb07 = new Bulb(-4, -60, -12, bsize);
-Bulb bulb08 = new Bulb(-8, -60, -8, bsize);
+Bulb bulb01 = new Bulb(-48, -30, 16, bsize);
+Bulb bulb02 = new Bulb(-16, -30, 16, bsize);
+Bulb bulb03 = new Bulb(16, -30, 16, bsize);
+Bulb bulb04 = new Bulb(48, -30, 16, bsize);
+Bulb bulb05 = new Bulb(32, -30, -32, bsize);
+Bulb bulb06 = new Bulb(16, -30, -48, bsize);
+Bulb bulb07 = new Bulb(-16, -30, -48, bsize);
+Bulb bulb08 = new Bulb(-32, -30, -32, bsize);
 //SECOND ARDUINO
-Bulb bulb09 = new Bulb(-8, -60, 8, bsize);
-Bulb bulb10 = new Bulb(-4, -60, 12, bsize);
-Bulb bulb11 = new Bulb(4, -60, 12, bsize);
-Bulb bulb12 = new Bulb(8, -60, 8, bsize);
-Bulb bulb13 = new Bulb(12, -60, -4, bsize);
-Bulb bulb14 = new Bulb(4, -60, -4, bsize);
-Bulb bulb15 = new Bulb(-4, -60, -4, bsize);
-Bulb bulb16 = new Bulb(-12, -60, -4, bsize);
+Bulb bulb09 = new Bulb(-32, -30, 32, bsize);
+Bulb bulb10 = new Bulb(-16, -30, 48, bsize);
+Bulb bulb11 = new Bulb(16, -30, 48, bsize);
+Bulb bulb12 = new Bulb(32, -30, 32, bsize);
+Bulb bulb13 = new Bulb(48, -30, -16, bsize);
+Bulb bulb14 = new Bulb(16, -30, -16, bsize);
+Bulb bulb15 = new Bulb(-16, -30, -16, bsize);
+Bulb bulb16 = new Bulb(-48, -30, -16, bsize);
 void settings()
 {  
-  size(1280, 720, P3D);
+  size(1920, 1080, P3D);
+  //UNCOMMENT TO GET FULLSCREEN
   //fullScreen(P3D);
 }
 void setup() {
-  //for (int i = 0; i < Serial.list().length; i++) {
-  //  println(Serial.list()[i]);
-  //}
-  if (Serial.list().length != 0) {
+  //LIST PORTS
+  for (int i = 0; i < Serial.list().length; i++) {
+    println(Serial.list()[i]);
+  }
+  if (Serial.list().length != 0 && !Serial.list()[0].contains("Bluetooth")) {
     String portName1 = Serial.list()[0]; //change the 0 to a 1 or 2 etc. to match your port
     myPort1 = new Serial(this, portName1, 9600);
     myPort1.clear();  // function from serial library that throws out the first reading, in case we started reading in the middle of a string from Arduino
     serial1 = myPort1.readStringUntil(end); // function that reads the string from serial port until a println and then assigns string to our string variable (called 'serial')
     serial1 = null; // initially, the string will be null (empty)
 
-    if (Serial.list().length > 1) {
+    if (Serial.list().length > 1 && !Serial.list()[1].contains("Bluetooth")) {
       String portName2 = Serial.list()[1];
-      myPort2 = new Serial(this, portName2, 38400);
+      myPort2 = new Serial(this, portName2, 9600);
       myPort2.clear();  // function from serial library that throws out the first reading, in case we started reading in the middle of a string from Arduino
       serial2 = myPort2.readStringUntil(end); // function that reads the string from serial port until a println and then assigns string to our string variable (called 'serial')
       serial2 = null; // initially, the string will be null (empty)
@@ -208,24 +163,6 @@ void draw() {
       //println(lightSensor[0] + "," + lightSensor[1] + "," + lightSensor[2] + "," +lightSensor[3]);
     }
   }
-  //if(x1 > maxX1){
-  //maxX1 = x1;
-  //}
-  //  if(x2 > maxX2){
-  //maxX2 = x2;
-  //}
-  //  if(y1 > maxZ1){
-  //maxZ1 = y1;
-  //}
-  //  if(y2 > maxZ2){
-  //maxZ2 = y2;
-  //}
-  //x1 = int(map(x1, 0, maxX1, 0, 1023));
-  //x2 = int(map(x2, 0, maxX2, 0, 1023));
-  //y1 = int(map(y1, 0, maxZ1, 0, 1023));
-  //y2 = int(map(y2, 0, maxZ2, 0, 1023));
-
-
   flameX = (x2 - x1);
   flameY = (y2 - y1);
   println(x1+ "," + y1 + "," + x2 + "," +y2);
@@ -271,24 +208,6 @@ void draw() {
   windX=0;
   windZ=0;
 
-
-  //    if (flameX < -toleranceZeroX && flameY < -toleranceZeroX) {
-  //      windZ -= windForce;
-  //      windX -= windForce;
-  //    }
-  //    if (flameX > toleranceZeroX && flameY < -toleranceZeroX) {
-  //      windZ -= windForce;
-  //      windX += windForce;
-  //    }  
-  //    if (flameX < -toleranceZeroX && flameY > toleranceZeroX) {
-  //      windZ += windForce;
-  //      windX -= windForce;
-  //    }  
-  //    if (flameX > toleranceZeroX && flameY > toleranceZeroX) {
-  //      windZ += windForce;
-  //      windX += windForce;
-  //    }
-
   if (keyPressed) {
     if (keyCode == UP) {
       windZ -= windForce;
@@ -305,26 +224,6 @@ void draw() {
     }
   } else {
 
-//    if (flameX < -toleranceZeroX && flameY < -toleranceZeroX) {
-//      windZ -= windForce;
-//      windX -= windForce;
-//      println("1");
-//    }
-//    if (flameX > toleranceZeroX && flameY < -toleranceZeroX) {
-//      windZ -= windForce;
-//      windX += windForce;
-//      println("2");
-//    }  
-//    if (flameX < -toleranceZeroX && flameY > toleranceZeroX) {
-//      windZ += windForce;
-//      windX -= windForce;
-//      println("3");
-//    }  
-//    if (flameX > toleranceZeroX && flameY > toleranceZeroX) {
-//      windZ += windForce;
-//      windX += windForce;
-//      println("4");
-//    }
     if (flameY > toleranceZeroX) {
       windZ += windForce;
     }
@@ -359,7 +258,7 @@ void draw() {
     myPort1.write("g" + bulbs[6].brightness);
     myPort1.write("h" + bulbs[7].brightness);
 
-    if (extension) {
+    if (extension && myPort2 != null) {
       myPort2.write("a" + bulbs[8].brightness);
       myPort2.write("b" + bulbs[9].brightness);
       myPort2.write("c" + bulbs[10].brightness);
@@ -379,8 +278,6 @@ void draw() {
   //}
   //println();
 }
-//p
-
 // Renders a vector object 'v' as an arrow and a position 'loc'
 void drawVector(PVector v, PVector loc, float scayl) {
   pushMatrix();
@@ -405,69 +302,71 @@ void drawVector(PVector v, PVector loc, float scayl) {
   popMatrix();
 }
 void keyPressed() {
-  if (key == '1') {
+  switch(key) {
+  case '1':
     actives[0] = true;
     bulbs[0].wave.reset();
-  }
-  if (key == '2') {
+    break;
+  case '2':
     actives[1] = true;
     bulbs[1].wave.reset();
-  }
-  if (key == '3') {
+    break;  
+  case '3':
     actives[2] = true;
     bulbs[2].wave.reset();
-  }
-  if (key == '4') {
+    break;  
+  case '4':
     actives[3] = true;
     bulbs[3].wave.reset();
-  }
-  if (key == '5') {
+    break;   
+  case '5':
     actives[4] = true;
     bulbs[4].wave.reset();
-  }
-  if (key == '6') {
+    break;  
+  case '6':
     actives[5] = true;
     bulbs[5].wave.reset();
-  }
-  if (key == '7') {
+    break;  
+  case '7':
     actives[6] = true;
     bulbs[6].wave.reset();
-  }
-  if (key == '8') {
+    break;  
+  case '8':
     actives[7] = true;
     bulbs[7].wave.reset();
-  }
-  if (key == 'q') {
+    break;  
+  case 'q':
     actives[8] = true;
     bulbs[8].wave.reset();
-  }
-  if (key == 'w') {
+    break;  
+  case 'w':
     actives[9] = true;
     bulbs[9].wave.reset();
-  }
-  if (key == 'e') {
+    break;  
+  case 'e':
     actives[10] = true;
     bulbs[10].wave.reset();
-  }  
-  if (key == 'r') {
+    break;
+  case 'r':
     actives[11] = true;
     bulbs[11].wave.reset();
-  }  
-  if (key == 't') {
+    break;  
+  case 't':
     actives[12] = true;
     bulbs[12].wave.reset();
-  }  
-  if (key == 'y') {
+    break;  
+  case 'y':
     actives[13] = true;
     bulbs[13].wave.reset();
-  }  
-  if (key == 'u') {
+    break;  
+  case 'u':
     actives[14] = true;
     bulbs[14].wave.reset();
-  }  
-  if (key == 'i') {
+    break;  
+  case 'i':
     actives[15] = true;
     bulbs[15].wave.reset();
+    break;
   }
   if (key == 57) {
     pause = !pause;
@@ -478,8 +377,6 @@ void keyPressed() {
   if (key == 'o') {
     waveCandle.reset();
   }
-
-
   //println(key);
   //println(keyCode);
 }
